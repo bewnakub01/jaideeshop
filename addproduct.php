@@ -55,37 +55,30 @@
                         <div class="panel-body">
 
                         <div class="form-group row">
-                                <label for="firstname" class="col-md-3">Firstname : </label>
+                                <label for="firstname" class="col-md-3">ชื่อสินค้า : </label>
                                 <div class="col-md-9">
                                     <input type="text" name="firstname" class="form-control">
                                 </div>
                             </div>
                 
                             <div class="form-group row">
-                                <label for="lastname" class="col-md-3">Lastname : </label>
+                                <label for="lastname" class="col-md-3">Description : </label>
                                 <div class="col-md-9">
                                     <input type="text" name="lastname" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-3">E-mail : </label>
+                                <label for="email" class="col-md-3">Price : </label>
                                 <div class="col-md-9">
                                     <input type="email" name="email" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="username" class="col-md-3">Username : </label>
+                                <label for="username" class="col-md-3">Stock : </label>
                                 <div class="col-md-9">
                                     <input type="text" name="username" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-3">Password : </label>
-                                <div class="col-md-9">
-                                    <input type="password" name="password" class="form-control">
                                 </div>
                             </div>
                         

@@ -1,13 +1,14 @@
+
 <?php
     session_start();
-    if(isset($_GET['pid'])){
-        $pid = $_GET['pid'];
+    if(isset($_GET['cat'])){
+        $category = $_GET['cat'];
     }
     else{
         header("Location: index.php");
     }
     include("connect.php");
-    $sql = "SELECT * FROM product WHERE id=$pid";
+    $sql = "SELECT * FROM product WHERE category=$category";
     $result = $con->query($sql);
     if(!$result){
         echo "Error: " . $con->error;
@@ -21,7 +22,6 @@
         }
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +49,17 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Products</a></li>
+                    <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user"></i>
+                        Product <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showproduct.php?cat=1">Notebook</a></li>
+                        <li><a href="showproduct.php?cat=2">Pc</a></li>
+                        <li><a href="showproduct.php?cat=3">Moniter</a></li>
+                    </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
@@ -92,25 +102,45 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">
-        <h2 class="text-center"><?php echo $prd->name;?></h2>
-            <div class="col-md-6 col-sm-12">
-                <div class="thumbnail">
-                    <img src="img/product/<?php echo $prd->picture; ?>" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <p>Description: <?php echo $prd->description;?></p>
-                <p>Price: <?php echo $prd->price;?></p>
-                <p>Stock: <?php echo $prd->unintInStock;?></p>
-                <p>
-                    <a href="" class="btn btn-primary">Buy Now!</a>
-                    <a href="" class="btn btn-info">Add to basket</a>
-                </p>
-            </div>
+        <div class="jumbotron">
+            <h1>Jaidee Shop</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id animi maxime beatae iusto deleniti corrupti ducimus temporibus dicta quibusdam quidem! Dolores accusamus doloremque perspiciatis corrupti aperiam ipsum dignissimos eius adipisci?</p>
         </div>
     </div>
-
+    <div class="container">
+        <div class="row">
+        <?php
+            $sql = "SELECT * FROM product WHERE category=$category";
+            $result = $con->query($sql);
+          
+                //ดึงข้อมูล
+                while($prd=$result->fetch_object()){
+                    //$prd->id; //$prd["id"];
+        ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
+                    <a href="productdetail.php?pid=<?php echo $prd->id; ?>">
+                        <img src="img/product/<?php echo $prd->picture; ?>" alt="">
+                    </a>
+                        <div class="caption">
+                            <h3><?php echo $prd->name; ?></h3>
+                                <p><?php echo $prd->description; ?></p>
+                                <p>
+                                    <strong>Price: <?php echo $prd->price ?></strong>
+                                </p>
+                                <p>
+                                    <a href="#" class="btn btn-success">Add to basket</a>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            <?php
+                }
+            
+            ?>
+                
+        </div>
+    </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>

@@ -1,25 +1,6 @@
 <?php
     session_start();
-    if(isset($_GET['pid'])){
-        $pid = $_GET['pid'];
-    }
-    else{
-        header("Location: index.php");
-    }
     include("connect.php");
-    $sql = "SELECT * FROM product WHERE id=$pid";
-    $result = $con->query($sql);
-    if(!$result){
-        echo "Error: " . $con->error;
-    }
-    else{
-        if($result->num_rows>0){
-            $prd = $result->fetch_object();
-        }
-        else{
-            $prd = NULL;
-        }
-    }
 ?>
 
 
@@ -91,26 +72,55 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
         <div class="row">
-        <h2 class="text-center"><?php echo $prd->name;?></h2>
-            <div class="col-md-6 col-sm-12">
-                <div class="thumbnail">
-                    <img src="img/product/<?php echo $prd->picture; ?>" alt="">
+            <form action="saveproduct.php" class="form-horizontal" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name" class="control-label col-md-3">Name:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="txtName" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <p>Description: <?php echo $prd->description;?></p>
-                <p>Price: <?php echo $prd->price;?></p>
-                <p>Stock: <?php echo $prd->unintInStock;?></p>
-                <p>
-                    <a href="" class="btn btn-primary">Buy Now!</a>
-                    <a href="" class="btn btn-info">Add to basket</a>
-                </p>
-            </div>
+
+                <div class="form-group">
+                    <label for="description" class="control-label col-md-3">Description:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="txtDescription" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class="control-label col-md-3">Price:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="txtPrice" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock" class="control-label col-md-3">Stock:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="txtStock" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="picture" class="control-label col-md-3">Produce Picture:</label>
+                    <div class="col-md-9">
+                        <input type="file" name="filepic" class="form-control-file" accept="image/*" >  
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
-
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>

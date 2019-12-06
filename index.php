@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('connect.php ')
+    include("connect.php");
 ?>
 
 
@@ -28,9 +28,19 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Products</a></li>
+                    <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        
+                        Product <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showproduct.php?cat=1">Notebook</a></li>
+                        <li><a href="showproduct.php?cat=2">pc</a></li>
+                        <li><a href="showproduct.php?cat=3">Moniter</a></li>
+                    </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
@@ -62,7 +72,7 @@
                     ?>
 
                     <li><a href="login.php">Login</a></li>
-                    <li><a href="#">Sign in</a></li>
+                    <li><a href="Register.php">Sign in</a></li>
 
                     <?php
                     }
@@ -74,46 +84,47 @@
     </nav>
     <div class="container">
         <div class="jumbotron">
-            <h1>Jaidee Shop5555</h1>
+            <h1>Jaidee Shop</h1>
             <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id animi maxime beatae iusto deleniti corrupti ducimus temporibus dicta quibusdam quidem! Dolores accusamus doloremque perspiciatis corrupti aperiam ipsum dignissimos eius adipisci?</p>
         </div>
     </div>
     <div class="container">
-            <div class="row">
-                <?php
-                    $sql = "SELECT * FROM product ORDER BY id";
-                    $result = $con->query($sql);
+        <div class="row">
+        <?php
+            $sql = "SELECT * FROM product ORDER BY id";
+            $result = $con->query($sql);
                     if(!$result){
-                        echo "Error Dourin data retrieval".$con->error;
-                        
+                        echo "ERror";
                     }
                     else{
-                            while($prd=$result->fetch_object()){
-                            ?>
-
-                            <div class="col-lg-3 col-md4 col-sm-6 col-xs-12">
-                                <div class="thumbnail">
-                                    
-                                    <a href="productdetail.php?pid=<?php $prd->id; ?>"></a>
-                                    <img src="img/product/<?php echo $prd->picture; ?>" alt="">
-                                    
-                                    <div class="cption">
-                                        <h3><?php echo $prd->name; ?></h3>
-                                        <p><?php echo $prd->description;; ?></p>
-                                        <p>
-                                            <strong>Price:<?php echo $prd->price ?></strong>
-                                        </p>
-                                        <p>
-                                            <a href="#" class="btn btn-success">Read More</a>
-                                        </p>
-                            </div>
+                //ดึงข้อมูล
+                while($prd=$result->fetch_object()){
+                    //$prd->id; //$prd["id"];
+        ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
+                    <a href="productdetail.php?pid=<?php echo $prd->id; ?>">
+                        <img src="img/product/<?php echo $prd->picture; ?>" alt="">
+                    </a>
+                        <div class="caption">
+                            <h3><?php echo $prd->name; ?></h3>
+                                <p><?php echo $prd->description; ?></p>
+                                <p>
+                                    <strong>Price: <?php echo $prd->price ?></strong>
+                                </p>
+                                <p>
+                                    <a href="#" class="btn btn-success">Add to basket</a>
+                                </p>
                         </div>
                     </div>
-                 <?php
-                    }
+                </div>
+            <?php
                 }
-                ?> 
-            </div>
+            }
+            ?>
+                
+        </div>
+    </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
